@@ -5,23 +5,15 @@ Old way:
 ```JavaScript
 var numbers = [1, 5, 10, 15];
 var plusIndex = numbers.map(function(x, i) {
-   return x + i;
+   return x * i;
 });
 ```
-New way with ES6 arrow feature - we can get rid of function keyword:
+New way with ES6 arrow feature - we can get rid of function and return keywords:
 ```JavaScript
-var numbers = [1, 5, 10, 15];
-var plusIndex = numbers.map((x, i) => return x + i);
-```
-
-Even shorter - get rid of return keyword:
-```JavaScript
-var numbers = [1, 5, 10, 15];
-var plusIndex = numbers.map((x, i) => x + i);
+var plusIndex = numbers.map((x, i) => x * i);
 ```
 
 If we only have one argument, we don't need parentheses around argument list:
 ```JavaScript
-var numbers = [1, 5, 10, 15];
 var doubles = numbers.map(x => x * 2);
 ```
