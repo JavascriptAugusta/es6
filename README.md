@@ -42,7 +42,9 @@ var maria = {
 Result is: 
 
 Maria knows Nancy
+
 Maria knows Annette
+
 Maria knows John
 
 New way - the thisArg parameter can be omitted as arrow functions lexically bind the this value:
@@ -62,5 +64,7 @@ New way - the thisArg parameter can be omitted as arrow functions lexically bind
 Result is:
 
 Bob knows Nancy
+
 Bob knows Annette
+
 Bob knows John
