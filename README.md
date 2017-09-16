@@ -55,11 +55,12 @@ New way - the thisArg parameter can be omitted as arrow functions lexically bind
 ```
 <b>Promises</b>
 
-Promises are basically objects which can be in one of the following 3 states:
-•	pending: waiting for the operation to finish. This is the initial state when creating a promise.
-•	fulfilled: the operation finished successfully.
-•	rejected: the operation failed.
-Every Promise receives a callback function as a parameter. This callback function gets two parameters: a fullfill function, i.e. the operation finished successfully, and a reject function, i.e. the operation failed.
+Promises are basically objects which can be in one of 3 states:
+•	pending
+•	fulfilled
+•	rejected
+
+A Promise gets a callback function as a parameter. In turn, the callback function gets two parameters - a fulfill function if the operation succeeds, and a reject function if the operation failed.
 
 Old way:
 ```JavaScript
