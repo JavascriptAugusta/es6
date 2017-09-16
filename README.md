@@ -39,14 +39,6 @@ var maria = {
         maria1.printFriends();
 ```
 
-Result is: 
-
-Maria knows Nancy
-
-Maria knows Annette
-
-Maria knows John
-
 New way - the thisArg parameter can be omitted as arrow functions lexically bind the this value:
 
 ```JavaScript
@@ -61,10 +53,69 @@ New way - the thisArg parameter can be omitted as arrow functions lexically bind
         var bob1 = Object.create(bob);
         bob1.printFriends();
 ```
-Result is:
+<b>Promises</b>
 
-Bob knows Nancy
+Promises are basically objects which can be in one of the following 3 states:
+•	pending: waiting for the operation to finish. This is the initial state when creating a promise.
+•	fulfilled: the operation finished successfully.
+•	rejected: the operation failed.
+Every Promise receives a callback function as a parameter. This callback function gets two parameters: a fullfill function, i.e. the operation finished successfully, and a reject function, i.e. the operation failed.
 
-Bob knows Annette
+Old way:
+```JavaScript
+ var request = new XMLHttpRequest();
+        //onload and onerror are event handlers
+        request.onload = function () {
+            var data = JSON.parse(this.responseText);
+            //do stuff with data
+            document.writeln("Old way<br>");
+            document.writeln("Name: " + data.name);
+        };
 
-Bob knows John
+        request.onerror = function () {
+            alert('There was a problem with the request');
+        }
+        request.open('get', 'https://swapi.co/api/people/1/', true);
+        request.send();
+ ```
+ New way:
+ ```JavaScript
+ function get(url) {
+            // Return a new promise.
+            return new Promise((resolve, reject) => {
+                // Do the usual XHR stuff
+                var request = new XMLHttpRequest();
+                request.open('GET', url);
+
+                request.onload = () => {
+                    if (request.status == 200) {
+                        // Resolve the promise with the response text
+                        resolve(request.response);
+                    }
+                    else {
+                        // Otherwise reject with the status text
+                        reject(Error(request.statusText));
+                    }
+                };
+
+                // Handle network errors
+                request.onerror = () => {
+                    reject(Error("Network Error"));
+                };
+
+                // Make the request
+                request.send();
+            });
+        }
+
+        get('https://swapi.co/api/people/y/').then((response) => {
+            //console.log("Success!", response);
+            var data = JSON.parse(response);
+            //do stuff with data
+            document.writeln("New way<br>");
+            document.writeln("Name: " + data.name);
+        }, (error) => {
+            alert('There was a problem with the request: ' + error);
+            //console.error("Failed!", error);
+        })
+  ```
