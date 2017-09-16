@@ -120,3 +120,41 @@ Old way:
             //console.error("Failed!", error);
         })
   ```
+<b>Classes</b>
+ES6 doesn’t really change how JavaScript handles its “classes“ to an object-oriented inheritance model. Strictly speaking, JavaScript does not have classes. It still has prototype-based inheritance. ES6 <b>does</b> provide a cleaner syntax to create objects and deal with inheritance.
+
+Old way of creating classes:
+ ```JavaScript
+        function Vehicle(type, color) { 
+            this.type = type;
+            this.color = color;
+        }
+
+        var car = new Vehicle("Honda", "silver");
+        document.writeln("Old way<br>");
+        document.writeln("Car type is " + car.type);
+        document.writeln("Car color is " + car.color);
+```
+
+New way of creating classes:
+ ```JavaScript
+ class Vehicle {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+
+            getColor() {
+                return this.color;
+            }
+        }
+
+        let car = new Vehicle("Honda", "silver");
+        document.writeln("New way<br>");
+        document.writeln("Car type is " + car.type);
+        document.writeln("Car color is " + car.getColor());
+```
+
+Class inheritance in ES5 was really complicated, so a lot of developers didn't bother with it. ES6 provides a much easier way to extend a class. Note that you must use "super" to call the parent constructor if you are overriding the constructor.
+
+
