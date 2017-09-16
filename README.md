@@ -109,7 +109,7 @@ Old way:
             });
         }
 
-        get('https://swapi.co/api/people/y/').then((response) => {
+        get('https://swapi.co/api/people/2/').then((response) => {
             //console.log("Success!", response);
             var data = JSON.parse(response);
             //do stuff with data
