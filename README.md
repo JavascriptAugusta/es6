@@ -121,6 +121,7 @@ Old way:
         })
   ```
 <b>Classes</b>
+
 ES6 doesn’t really change how JavaScript handles its “classes“ to an object-oriented inheritance model. Strictly speaking, JavaScript does not have classes. It still has prototype-based inheritance. ES6 <b>does</b> provide a cleaner syntax to create objects and deal with inheritance.
 
 Old way of creating classes:
@@ -138,7 +139,7 @@ Old way of creating classes:
 
 New way of creating classes:
  ```JavaScript
- class Vehicle {
+           class Vehicle {
             constructor(type, color) {
                 this.type = type;
                 this.color = color;
@@ -155,6 +156,83 @@ New way of creating classes:
         document.writeln("Car color is " + car.getColor());
 ```
 
-Class inheritance in ES5 was really complicated, so a lot of developers didn't bother with it. ES6 provides a much easier way to extend a class. Note that you must use "super" to call the parent constructor if you are overriding the constructor.
+Class inheritance in ES5 was really complicated, so a lot of developers didn't bother with it. ES6 provides a much easier way to extend a class. 
 
+Old way of inheritance:
+ ```JavaScript
+      // Vehicle constructor function
+      function Vehicle(type, color) { 
+            this.type = type;
+            this.color = color;
+        }
+      // Car constructor function
+        // when called with the "new" operator,
+        // a new Car object is created
 
+        function Car(maxSpeed, type, color) {
+            // the "new" operator sets the reference of "this" to
+            // a new object, the new object is then passed to the
+            // Vehicle constructor function through the use of call,
+            // so the type and color properties can be set
+            this._super.call(this, type, color);
+            this.maxSpeed = maxSpeed;
+        }
+
+        // cars will inherit from a new object
+        // which inherits from the parent
+        Car.prototype = Object.create(Vehicle.prototype);
+
+        // set the constructor property back to the Car
+        // constructor function
+        Car.prototype.constructor = Car;
+
+        // "_super" is NOT part of ES5, its a convention
+        // defined by the developer
+        // set the "_super" to the Vehicle constructor function
+        Car.prototype._super = Vehicle;
+
+        // this will exist on the car's prototype object
+        Car.prototype.getMaxSpeedFormatted = function() {
+            return this.maxSpeed + "km/h";
+        }
+
+        // instantiate a new Car object
+        var car2 = new Car(200, "Corvette", "red");
+
+        // invoking function on parent prototype
+        document.writeln("Car type is " + car2.type +", color is "+ car2.color);
+
+        // invoking function on child prototype
+        // output "1 Smith, Bob"
+        document.writeln("Car max speed is "+ car2.getMaxSpeedFormatted());
+ ```
+New way of inheritance:
+Note that in ES6 you must use "super" to call the parent constructor if you are overriding the constructor.
+
+```JavaScript
+         class Vehicle {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+
+            getColor() {
+                return this.color;
+            }
+        }
+        
+        class Car extends Vehicle {
+            constructor(color, maxSpeed) {
+                super("car", color);
+                this.maxSpeed = maxSpeed;
+            }
+
+            getMaxSpeedFormatted() {
+                return this.maxSpeed + "km/h";
+            }
+        }
+
+        let car1 = new Car("blue", 200);
+        document.writeln("New way of inheritance:<br>");
+        document.writeln("We have a " + car1.getColor() + " car with a max speed of " + car1.getMaxSpeedFormatted());
+```
