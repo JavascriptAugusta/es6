@@ -195,7 +195,6 @@ Old way of inheritance:
         Car.prototype.getMaxSpeedFormatted = function() {
             return this.maxSpeed + "km/h";
         }
-
         // instantiate a new Car object
         var car2 = new Car(200, "Corvette", "red");
 
@@ -236,3 +235,29 @@ Note that in ES6 you must use "super" to call the parent constructor if you are 
         document.writeln("New way of inheritance:<br>");
         document.writeln("We have a " + car1.getColor() + " car with a max speed of " + car1.getMaxSpeedFormatted());
 ```
+
+<b>Modules</b>
+JavaScript has had modules for a long time. However, they were implemented via libraries, not built into the language. ES6 is the first time that JavaScript has built-in modules.
+
+In ES5, you had two widely used approaches for modules: CommonJS and AMD. 
+
+CommonJS exports specific objects with free variable “exports” and the keyword “require” is used to import the exports of other modules.
+This approach is server-side-oriented.
+
+Modules are loaded synchronously the JavaScript thread stops until code has been loaded and blocks browser from running anything else until it finishes loading. You need a library like Browserify if you are using CommonJS in the browser.
+
+With AMD – Asynchronous Module Definition – you load modules asynchronously in the background and you define a callback function to execute once the dependencies are loaded. You need a library like RequireJS to run this.
+
+Note you can't import modules directly from inside a <script> tag. 
+
+In ES 6, the goal was to create format users of both approaches could be happy with.
+
+-	Compact syntax AND direct support for asynchronous loading and configurable module loading
+
+-	Structure can be statically analyzed
+
+-	Support for cyclic dependencies better than CommonJS
+
+-	Standard has two parts – declarative syntax for import/export and programmatic loader API
+
+BUT I didn't find browser support for ES6 modules in Chrome or Firefox as of this writing (Sept 2017).
