@@ -74,7 +74,7 @@ ES6 way - the thisArg parameter can be omitted as arrow functions lexically bind
  var bob = {
             _name: "Bob",
             _friends: ["Nancy", "Annette", "John"],
-            printFriends() {
+            printFriends: function() {
             this._friends.forEach(f =>
             document.writeln(this._name + " knows " + f +"<br>"));
             }
@@ -98,7 +98,6 @@ ES5 way:
         request.onload = function () {
             var data = JSON.parse(this.responseText);
             //do stuff with data
-            document.writeln("Old way<br>");
             document.writeln("Name: " + data.name);
         };
 
@@ -141,12 +140,10 @@ ES6 way:
         get('https://swapi.co/api/people/2/').then((response) => {
             //console.log("Success!", response);
             var data = JSON.parse(response);
-            //do stuff with data
-            document.writeln("New way<br>");
+            //do stuff with data         
             document.writeln("Name: " + data.name);
         }, (error) => {
             alert('There was a problem with the request: ' + error);
-            //console.error("Failed!", error);
         })
   ```
 <b>Classes</b>
@@ -161,9 +158,7 @@ ES5 way of creating classes:
         }
 
         var car = new Vehicle("Honda", "silver");
-        document.writeln("Old way<br>");
-        document.writeln("Car type is " + car.type);
-        document.writeln("Car color is " + car.color);
+        
 ```
 
 ES6 way of creating classes:
@@ -180,9 +175,6 @@ ES6 way of creating classes:
         }
 
         let car = new Vehicle("Honda", "silver");
-        document.writeln("New way<br>");
-        document.writeln("Car type is " + car.type);
-        document.writeln("Car color is " + car.getColor());
 ```
 
 Class inheritance in ES5 was really complicated, so a lot of developers didn't bother with it. ES6 provides a much easier way to extend a class. 
@@ -238,7 +230,8 @@ ES6 way of inheritance:
 Note that in ES6 you must use "super" to call the parent constructor if you are overriding the constructor.
 
 ```JavaScript
-         class Vehicle {
+         //ES6
+        class Vehicle {
             constructor(type, color) {
                 this.type = type;
                 this.color = color;
@@ -248,10 +241,9 @@ Note that in ES6 you must use "super" to call the parent constructor if you are 
                 return this.color;
             }
         }
-        
         class Car extends Vehicle {
-            constructor(color, maxSpeed) {
-                super("car", color);
+            constructor(type, color, maxSpeed) {
+                super(type, color);
                 this.maxSpeed = maxSpeed;
             }
 
@@ -259,10 +251,7 @@ Note that in ES6 you must use "super" to call the parent constructor if you are 
                 return this.maxSpeed + "km/h";
             }
         }
-
-        let car1 = new Car("blue", 200);
-        document.writeln("New way of inheritance:<br>");
-        document.writeln("We have a " + car1.getColor() + " car with a max speed of " + car1.getMaxSpeedFormatted());
+        let car1 = new Car("Mazda","blue", 200);
 ```
 
 <b>Modules</b>
@@ -359,3 +348,15 @@ export function diag(x, y) {
 ```
 
 BUT I didn't find browser support for ES6 modules in Chrome or Firefox as of this writing (Sept 2017).
+
+References:
+https://babeljs.io/learn-es2015/
+https://www.todaysoftmag.com/article/1731/ecmascript-6-why-and-how-to-use-it-today
+https://benmccormick.org/2015/09/14/es5-es6-es2016-es-next-whats-going-on-with-javascript-versioning/
+https://benmccormick.org/2017/07/10/how-to-follow-the-javascript-roadmap/
+http://kangax.github.io/compat-table/es6/
+https://benmccormick.org/2015/12/30/es6-patterns-converting-callbacks-to-promises
+http://exploringjs.com/es6/ch_modules.html#sec_overview-modules
+https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+https://stackoverflow.com/questions/4269150/what-is-ecmascript
