@@ -237,6 +237,7 @@ Note that in ES6 you must use "super" to call the parent constructor if you are 
 ```
 
 <b>Modules</b>
+
 JavaScript has had modules for a long time. However, they were implemented via libraries, not built into the language. ES6 is the first time that JavaScript has built-in modules.
 
 In ES5, you had two widely used approaches for modules: CommonJS and AMD. 
@@ -244,12 +245,62 @@ In ES5, you had two widely used approaches for modules: CommonJS and AMD.
 CommonJS exports specific objects with free variable “exports” and the keyword “require” is used to import the exports of other modules.
 This approach is server-side-oriented.
 
-Modules are loaded synchronously the JavaScript thread stops until code has been loaded and blocks browser from running anything else until it finishes loading. You need a library like Browserify if you are using CommonJS in the browser.
+```JavaScript
+//------ main.js ------
+var square = require('./lib').square;
+var diag = require('./lib').diag;
+console.log("Square of 11 is " + square(11)); // 121
+console.log("Diagonal of 4 and 3 is " + diag(4, 3)); // 5
+
+//------ lib.js ------
+var sqrt = Math.sqrt;
+function square(x) {
+    return x * x;
+}
+function diag(x, y) {
+    return sqrt(square(x) + square(y));
+}
+module.exports = {
+    sqrt: sqrt,
+    square: square,
+    diag: diag,
+};
+```
+
+Modules are loaded synchronously the JavaScript thread stops until code has been loaded and blocks browser from running anything else until it finishes loading. You need a library like Browserify if you are using the CommonJS syntax in the browser.
 
 With AMD – Asynchronous Module Definition – you load modules asynchronously in the background and you define a callback function to execute once the dependencies are loaded. You need a library like RequireJS to run this.
 
 Note you can't import modules directly from inside a <script> tag. 
 
+```JavaScript
+//------ main.js ------
+require(['apps/mathLib'], function (mathLib) {
+    alert("Square of 11 is "+ mathLib.square(11));
+});
+//------ apps/mathLib.js ------
+define([], function () {
+    return {
+        square: function (x) {
+            return x * x;
+        }
+    };
+});
+```
+
+Here is the HTML to call the script:
+```JavaScript
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+     <meta charset="utf-8" />
+     <title></title>
+       <script data-main="scripts/main" src="scripts/require.js"></script> 
+   </head>
+   <body>
+   </body>
+</html>
+```
 In ES 6, the goal was to create format users of both approaches could be happy with.
 
 -	Compact syntax AND direct support for asynchronous loading and configurable module loading
@@ -259,5 +310,21 @@ In ES 6, the goal was to create format users of both approaches could be happy w
 -	Support for cyclic dependencies better than CommonJS
 
 -	Standard has two parts – declarative syntax for import/export and programmatic loader API
+
+```JavaScript
+//------ main_es6.js ------
+import { square, diag } from 'lib_es6';
+alert("ES6 way - square of 11 is "+ square(11)); // 121
+alert("ES6 way - diagonal of 4 and 3 is "+ diag(4, 3)); // 5
+
+//------ lib_es6.js ------
+export const sqrt = Math.sqrt;
+export function square(x) {
+    return x * x;
+}
+export function diag(x, y) {
+    return sqrt(square(x) + square(y));
+}
+```
 
 BUT I didn't find browser support for ES6 modules in Chrome or Firefox as of this writing (Sept 2017).
