@@ -252,6 +252,8 @@ Note that in ES6 you must use "super" to call the parent constructor if you are 
             }
         }
         let car1 = new Car("Mazda","blue", 200);
+        document.writeln("Car type is " + car1.type + ", color is " + car1.getColor() + "<br>");
+        document.writeln("Car max speed is " + car1.getMaxSpeedFormatted());
 ```
 
 <b>Modules</b>
@@ -351,12 +353,21 @@ BUT I didn't find browser support for ES6 modules in Chrome or Firefox as of thi
 
 References:
 https://babeljs.io/learn-es2015/
+
 https://www.todaysoftmag.com/article/1731/ecmascript-6-why-and-how-to-use-it-today
+
 https://benmccormick.org/2015/09/14/es5-es6-es2016-es-next-whats-going-on-with-javascript-versioning/
+
 https://benmccormick.org/2017/07/10/how-to-follow-the-javascript-roadmap/
+
 http://kangax.github.io/compat-table/es6/
+
 https://benmccormick.org/2015/12/30/es6-patterns-converting-callbacks-to-promises
+
 http://exploringjs.com/es6/ch_modules.html#sec_overview-modules
+
 https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
+
 https://stackoverflow.com/questions/4269150/what-is-ecmascript
