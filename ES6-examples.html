@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script data-main="scripts/main" src="scripts/require.js"></script> 
+    <script src="main_es6.js" type="module"></script>  
+</head>
+<body>
+    <script>
+        var numbers = [1, 5, 10, 15];
+        var numTimesIndex = numbers.map((x, i) => x * i);
+        document.writeln("ES6 numbers function");
+        document.writeln("Array: [1, 5, 10, 15]")
+        document.writeln("Result: " + numTimesIndex);
+
+        document.writeln("New way<br>");
+        var bob = {
+            _name: "Bob",
+            _friends: ["Nancy", "Annette", "John"],
+            printFriends() {
+            this._friends.forEach(f =>
+            document.writeln(this._name + " knows " + f +"<br>"));
+            }
+        }
+        var bob1 = Object.create(bob);
+        bob1.printFriends();
+
+        document.writeln("Old way<br>");
+        var maria = {
+            _name: "Maria",
+            _friends: ["Nancy", "Annette", "John"],
+            printFriends: function() {
+                this._friends.forEach(function (element) {
+                    document.writeln(this._name + " knows " + element + "<br>")
+                }, this);
+            }
+        }
+        var maria1 = Object.create(maria);
+        maria1.printFriends();
+
+        /*
+        var request = new XMLHttpRequest();
+        //onload and onerror are event handlers
+        request.onload = function () {
+            var data = JSON.parse(this.responseText);
+            //do stuff with data
+            document.writeln("Old way<br>");
+            document.writeln("Name: " + data.name);
+        };
+
+        request.onerror = function () {
+            alert('There was a problem with the request');
+        }
+        request.open('get', 'https://swapi.co/api/people/1/', true);
+        request.send();*/
+
+        /*function get(url) {
+            // Return a new promise.
+            return new Promise((resolve, reject) => {
+                // Do the usual XHR stuff
+                var request = new XMLHttpRequest();
+                request.open('GET', url);
+
+                request.onload = () => {
+                    if (request.status == 200) {
+                        // Resolve the promise with the response text
+                        resolve(request.response);
+                    }
+                    else {
+                        // Otherwise reject with the status text
+                        reject(Error(request.statusText));
+                    }
+                };
+
+                // Handle network errors
+                request.onerror = () => {
+                    reject(Error("Network Error"));
+                };
+
+                // Make the request
+                request.send();
+            });
+        }
+
+        get('https://swapi.co/api/people/1/').then((response) => {
+            //console.log("Success!", response);
+            var data = JSON.parse(response);
+            //do stuff with data
+            document.writeln("New way<br>");
+            document.writeln("Name: " + data.name);
+        }, (error) => {
+            alert('There was a problem with the request: ' + error);
+            //console.error("Failed!", error);
+        });*/
+
+
+        function Vehicle(type, color) {
+            this.type = type;
+            this.color = color;
+        }
+
+        //var car = new Vehicle("Honda", "silver");
+        //document.writeln("Old way<br>");
+        //document.writeln("Car type is " + car.type);
+        //document.writeln("Car color is " + car.color);
+
+
+        /*class Vehicle {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+
+            getColor() {
+                return this.color;
+            }
+        }*/
+
+        //let car = new Vehicle("Honda", "silver");
+        //document.writeln("New way<br>");
+        //document.writeln("Car type is " + car.type);
+        //document.writeln("Car color is " + car.getColor());
+
+        // Extending the Vehicle
+        /*class Car extends Vehicle {
+            constructor(color, maxSpeed) {
+                super("car", color);
+                this.maxSpeed = maxSpeed;
+            }
+
+            getMaxSpeedFormatted() {
+                return this.maxSpeed + "km/h";
+            }
+        }
+
+        let car1 = new Car("blue", 200);
+        document.writeln("New way of inheritance:<br>");
+        document.writeln("We have a " + car1.getColor() + " car with a max speed of " + car1.getMaxSpeedFormatted());
+        */
+
+        // Car constructor function
+        // when called with the "new" operator,
+        // a new Car object is created
+
+        function Car(maxSpeed, type, color) {
+            // the "new" operator sets the reference of "this" to
+            // a new object, the new object is then passed to the
+            // Vehicle constructor function through the use of call,
+            // so the type and color properties can be set
+            this._super.call(this, type, color);
+            this.maxSpeed = maxSpeed;
+        }
+
+        // cars will inherit from a new object
+        // which inherits from the parent
+        Car.prototype = Object.create(Vehicle.prototype);
+
+        // set the constructor property back to the Car
+        // constructor function
+        Car.prototype.constructor = Car;
+
+        // "_super" is NOT part of ES5, its a convention
+        // defined by the developer
+        // set the "_super" to the Vehicle constructor function
+        Car.prototype._super = Vehicle;
+
+        // this will exist on the car's prototype object
+        Car.prototype.getMaxSpeedFormatted = function() {
+            return this.maxSpeed + "km/h";
+        }
+
+        // instantiate a new Car object
+        var car2 = new Car(200, "Corvette", "red");
+
+        // invoking function on parent prototype
+        document.writeln("Car type is " + car2.type +", color is "+ car2.color);
+
+        // invoking function on child prototype
+        // output "1 Smith, Bob"
+        document.writeln("Car max speed is "+ car2.getMaxSpeedFormatted());
+
+        
+        
+    </script>
+</body>
+</html>

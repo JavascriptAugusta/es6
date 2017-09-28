@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        
+        //ES5
+        function Vehicle(type, color) {
+            this.type = type;
+            this.color = color;
+        }
+
+        // Car constructor function
+        // when called with the "new" operator,
+        // a new Car object is created
+
+        function Car(maxSpeed, type, color) {
+            // the "new" operator sets the reference of "this" to
+            // a new object, the new object is then passed to the
+            // Vehicle constructor function through the use of call,
+            // so the type and color properties can be set
+            this._super.call(this, type, color);
+            this.maxSpeed = maxSpeed;
+        }
+
+        // cars will inherit from a new object
+        // which inherits from the parent
+        Car.prototype = Object.create(Vehicle.prototype);
+
+        // set the constructor property back to the Car
+        // constructor function
+        Car.prototype.constructor = Car;
+
+        // "_super" is NOT part of ES5, its a convention
+        // defined by the developer
+        // set the "_super" to the Vehicle constructor function
+        Car.prototype._super = Vehicle;
+
+        // this will exist on the car's prototype object
+        Car.prototype.getMaxSpeedFormatted = function () {
+            return this.maxSpeed + "km/h";
+        }
+
+        // instantiate a new Car object
+        var car2 = new Car(200, "Corvette", "red");
+
+        document.writeln("ES5 way of prototypical inheritance where Car inherits from Vehicle - complicated code<br>")
+
+        // invoking function on parent prototype
+        document.writeln("Car type is " + car2.type + ", color is " + car2.color + "<br>");
+
+        // invoking function on child prototype
+        // output "1 Smith, Bob"
+        document.writeln("Car max speed is " + car2.getMaxSpeedFormatted());
+        
+        /*
+        //ES6
+        class Vehicle {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+
+            getColor() {
+                return this.color;
+            }
+        }
+        class Car extends Vehicle {
+            constructor(type, color, maxSpeed) {
+                super(type, color);
+                this.maxSpeed = maxSpeed;
+            }
+
+            getMaxSpeedFormatted() {
+                return this.maxSpeed + "km/h";
+            }
+        }
+
+        let car1 = new Car("Mazda","blue", 200);
+        document.writeln("ES6 way of inheritance with simpler syntax:<br>");
+        document.writeln("Car type is " + car1.type + ", color is " + car1.getColor() + "<br>");
+        document.writeln("Car max speed is " + car1.getMaxSpeedFormatted());
+        */
+    </script>
+</body>
+</html>

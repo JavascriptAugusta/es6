@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        document.writeln("ES5 way - passing in a thisArg for each iteration<br>");
+        var maria = {
+           _name: "Maria",
+            _friends: ["Nancy", "Annette", "John"],
+            printFriends: function() {
+             this._friends.forEach(function (element) {
+                document.writeln(this._name + " knows " + element + "<br>")
+                }, this);
+            }
+        }
+        var maria1 = Object.create(maria);
+        maria1.printFriends();
+        
+        /*document.writeln("ES6 way - lexical this means no thisArg<br>");
+        var bob = {
+            _name: "Bob",
+            _friends: ["Nancy", "Annette", "John"],
+            printFriends: function() {
+                this._friends.forEach(f =>
+                    document.writeln(this._name + " knows " + f + "<br>"));
+            }
+        }
+        var bob1 = Object.create(bob);
+        bob1.printFriends();
+        */
+    </script>
+</body>
+</html>

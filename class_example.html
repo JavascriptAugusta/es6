@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        
+        //ES5
+        function Vehicle(type, color) {
+            this.type = type;
+            this.color = color;
+        }
+
+        var car = new Vehicle("Honda", "silver");
+        document.writeln("ES5 way<br>");
+        document.writeln("Car type is " + car.type +"<br>");
+        document.writeln("Car color is " + car.color);
+        
+
+        /*
+          //ES6
+          class Vehicle {
+            constructor(type, color) {
+                this.type = type;
+                this.color = color;
+            }
+
+            getColor() {
+                return this.color;
+            }
+        }
+
+        let car = new Vehicle("Honda", "silver");
+        document.writeln("ES6 way using constructor and getColor()<br>");
+        document.writeln("Car type is " + car.type + "<br>");
+        document.writeln("Car color is " + car.getColor());
+        */
+    </script>
+</body>
+</html>
