@@ -1,9 +1,38 @@
 # es6
 Examples of ECMAScript 6 features
 
+<b>Let</b>
+
+From Mozilla: let allows you to declare variables that are limited in scope to the block, statement, or expression on which it is used. This is unlike the var keyword, which defines a variable globally, or locally to an entire function regardless of block scope.
+
+ES5 way:
+```JavaScript
+function varTest() {
+  var x = 1;
+  if (true) {
+    var x = 2;  // same variable!
+    console.log(x);  // 2
+  }
+  console.log(x);  // 2
+}
+```
+
+ES6 way:
+
+```JavaScript
+function letTest() {
+  let x = 1;
+  if (true) {
+    let x = 2;  // different variable
+    console.log(x);  // 2
+  }
+  console.log(x);  // 1
+}
+```
+
 <b>Arrow feature</b>
 
-Old way:
+ES5 way:
 ```JavaScript
 var numbers = [1, 5, 10, 15];
 var numTimesIndex = numbers.map(function(x, i) {
@@ -24,7 +53,7 @@ var doubles = numbers.map(x => x * 2);
 
 Unlike functions, arrows share the same lexical this as their surrounding code.
 
-Old way - since the thisArg parameter (this) is provided to forEach(), it is passed to callback each time it's invoked, for use as its this value. It's confusing:
+ES5 way - since the thisArg parameter (this) is provided to forEach(), it is passed to callback each time it's invoked, for use as its this value. It's confusing:
 ```JavaScript
 var maria = {
             _name: "Maria",
@@ -39,7 +68,7 @@ var maria = {
         maria1.printFriends();
 ```
 
-New way - the thisArg parameter can be omitted as arrow functions lexically bind the this value:
+ES6 way - the thisArg parameter can be omitted as arrow functions lexically bind the "this" value:
 
 ```JavaScript
  var bob = {
@@ -62,7 +91,7 @@ Promises are basically objects which can be in one of 3 states:
 
 A Promise gets a callback function as a parameter. In turn, the callback function gets two parameters - a fulfill function if the operation succeeds, and a reject function if the operation failed.
 
-Old way:
+ES5 way:
 ```JavaScript
  var request = new XMLHttpRequest();
         //onload and onerror are event handlers
@@ -79,7 +108,7 @@ Old way:
         request.open('get', 'https://swapi.co/api/people/1/', true);
         request.send();
  ```
- New way:
+ES6 way:
  ```JavaScript
  function get(url) {
             // Return a new promise.
@@ -124,7 +153,7 @@ Old way:
 
 ES6 doesn’t really change how JavaScript handles its “classes“ to an object-oriented inheritance model. Strictly speaking, JavaScript does not have classes. It still has prototype-based inheritance. ES6 <b>does</b> provide a cleaner syntax to create objects and deal with inheritance.
 
-Old way of creating classes:
+ES5 way of creating classes:
  ```JavaScript
         function Vehicle(type, color) { 
             this.type = type;
@@ -137,7 +166,7 @@ Old way of creating classes:
         document.writeln("Car color is " + car.color);
 ```
 
-New way of creating classes:
+ES6 way of creating classes:
  ```JavaScript
            class Vehicle {
             constructor(type, color) {
@@ -158,7 +187,7 @@ New way of creating classes:
 
 Class inheritance in ES5 was really complicated, so a lot of developers didn't bother with it. ES6 provides a much easier way to extend a class. 
 
-Old way of inheritance:
+ES5 way of inheritance:
  ```JavaScript
       // Vehicle constructor function
       function Vehicle(type, color) { 
@@ -205,7 +234,7 @@ Old way of inheritance:
         // output "1 Smith, Bob"
         document.writeln("Car max speed is "+ car2.getMaxSpeedFormatted());
  ```
-New way of inheritance:
+ES6 way of inheritance:
 Note that in ES6 you must use "super" to call the parent constructor if you are overriding the constructor.
 
 ```JavaScript
@@ -310,6 +339,8 @@ In ES 6, the goal was to create format users of both approaches could be happy w
 -	Support for cyclic dependencies better than CommonJS
 
 -	Standard has two parts – declarative syntax for import/export and programmatic loader API
+
+ES6 way:
 
 ```JavaScript
 //------ main_es6.js ------
